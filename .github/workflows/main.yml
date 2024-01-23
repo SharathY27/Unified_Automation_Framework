@@ -13,9 +13,9 @@ jobs:
           - name: Set up JDK 21
             uses: actions/setup-java@v2
             with:
-                java-version: '21'
-                distribution: 'adoptium'
-                cache: 'maven'
+                java-version: 21
+                distribution: adoptium
+                architecture: x64
                 
           - name: Cache Maven packages
             uses: actions/cache@v2
