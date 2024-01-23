@@ -1,6 +1,6 @@
-name : Unified Automation Framework
+name : Unified Automation Framework workflow 
 
-on : [push]
+on : [push, pull_request]
 
 jobs:
     build:
