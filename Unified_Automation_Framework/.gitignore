@@ -1,2 +1,7 @@
 /target/
 /bin/
+/test-output/
+Screenshots/
+Reports/
+*.log
+*.tmp
