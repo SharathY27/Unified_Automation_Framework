@@ -17,6 +17,9 @@ jobs:
                 distribution: 'adopt'
                 cache: 'maven'
 
+          - name: Change working directory
+            run: cd ${{ github.workspace }}
+
           - name: Build and test
             run: mvn clean test  
             
