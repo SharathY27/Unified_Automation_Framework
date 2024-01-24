@@ -16,7 +16,13 @@ jobs:
                 java-version: 21
                 distribution: adopt
                 architecture: x64
-                timeout-minutes: 1
+                server-id: github 
+                settings-path: ${{ github.workspace }} 
+          - name: Install Google Chrome 
+            run: |
+              chmod +x ./scripts/InstallChrome.sh
+                          ./scripts/InstallChrome.sh 
+
                 
           - name: Cache Maven packages
             uses: actions/cache@v2
