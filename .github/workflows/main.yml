@@ -16,6 +16,23 @@ jobs:
                 java-version: 21
                 distribution: adopt
                 architecture: x64
+                
+          - name: Cache Maven packages
+            uses: actions/cache@v2
+            with:
+             path: ~/.m2
+             key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+             restore-keys: ${{ runner.os }}-m2
+
+          - name: Install Selenium Chrome WebDriver
+            run: |
+                CHROME_DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                curl -L https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -o chromedriver.zip
+                unzip chromedriver.zip
+                rm chromedriver.zip
+                sudo mv chromedriver /usr/local/bin/chromedriver
+                sudo chmod +x /usr/local/bin/chromedriver
+
 
           - name: Build and test
             run: mvn test 
