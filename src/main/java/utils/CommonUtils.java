@@ -101,6 +101,7 @@ public class CommonUtils {
 
 	public static void runTest(boolean parallel) {
 		// read from excel
+		readExcel();
 		TestNG testNG = new TestNG();
 		XmlSuite suite = new XmlSuite();
 		suite.setName("Dynamic Suite");
@@ -114,13 +115,13 @@ public class CommonUtils {
 		XmlTest test = new XmlTest(suite);
 		test.setName("Dynamic Test");
 		for (int i = 0; i < testClassName.size(); i++) {
-			XmlClass testClass = new XmlClass("testCases." + testClassName.get(i));
+			XmlClass testClass = new XmlClass("ui_testcases." + testClassName.get(i));
 			test.getClasses().add(testClass);
 			XmlInclude include = new XmlInclude(testCaseMethod.get(i));
 			testClass.getIncludedMethods().add(include);
 			testNG.setXmlSuites(Collections.singletonList(suite));
 		}
-//		System.out.println("Suite created dynamically : "+ suite.toXml());
+		System.out.println("Suite created dynamically : "+ suite.toXml());
 		testNG.run();
 	}
 

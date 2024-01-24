@@ -98,7 +98,6 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
-					<useClassSystemLoader>false</useClassSystemLoader>
 					<useManifestOnlyJar>false</useManifestOnlyJar>
 					<enableAssertions>true</enableAssertions>
 				</configuration>
