@@ -16,6 +16,7 @@ jobs:
                 java-version: 21
                 distribution: adopt
                 architecture: x64
+                timeout-minutes: 1
                 
           - name: Cache Maven packages
             uses: actions/cache@v2
