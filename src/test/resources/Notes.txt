@@ -29,7 +29,8 @@ i) Using ngrok , download ngrok and extrack and open in cmd
 	
 	run command : ngrok http 8080(assuming that jenkins server is running in
 									8080 localhost)
-									 
+	
+	refer this link for ngrok https://www.youtube.com/watch?v=o7zO4gNtVcc								 
 
 ii) Using smee(tunneling tool used for exposing localhost to internet so that github
 and jenkins can communicate to trigger build after push)
@@ -37,6 +38,7 @@ and jenkins can communicate to trigger build after push)
 Refer this link for smee setup & execution : 
 
 	https://www.jenkins.io/blog/2019/01/07/webhook-firewalls/
+	
 	
 	
 
