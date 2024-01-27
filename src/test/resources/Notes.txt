@@ -13,9 +13,22 @@ Commands for running through maven
 	
 	mvn test
 	
-To run test through command line, use selenium server standalone jar
-====================================================================
+To run test through command line
+================================
 
-command : java -cp <selenium-server-jar path> <java class file path>
+Go to framework root path and use maven to run
+
+command : mvn clean test
 
 refer link for running: https://www.blackbox.ai/share/c50fe9da-a7ef-4dd9-8518-db98de587a53
+
+To integrate jenkins with github
+===============================
+
+Using smee(tunneling tool used for exposing localhost to internet so that github
+and jenkins can communicate to trigger build after push)
+
+Refer this link for smee setup & execution : 
+
+	https://www.jenkins.io/blog/2019/01/07/webhook-firewalls/
+
