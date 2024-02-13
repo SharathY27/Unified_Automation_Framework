@@ -20,8 +20,10 @@ import static utils.CommonUtils.*;
 
 public class ExtentReportListener implements ITestListener {
 
-	public static ExtentSparkReporter sparkReporter = null;
-	public static ExtentReports extentReports = null;
+	public static ExtentSparkReporter sparkReporter = new ExtentSparkReporter(
+			System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator
+			+ "resources" + File.separator + "Reports" + File.separator + "AutomationReport.html");
+	public static ExtentReports extentReports = new ExtentReports();
 	public static ThreadLocal<ExtentTest> logger = new ThreadLocal<ExtentTest>();
 
 	public void onStart(ITestContext context) {
@@ -32,13 +34,6 @@ public class ExtentReportListener implements ITestListener {
 			e.printStackTrace();
 		}
 		String username = System.getProperty("user.name");
-		if (sparkReporter == null && extentReports == null) {
-			System.out.println("123");
-			sparkReporter = new ExtentSparkReporter(
-					System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator
-							+ "resources" + File.separator + "Reports" + File.separator + "AutomationReport.html");
-			extentReports = new ExtentReports();
-		}
 		extentReports.attachReporter(sparkReporter);
 		sparkReporter.config().setTheme(Theme.DARK);
 		extentReports.setSystemInfo("Hostname", hostname);
@@ -48,7 +43,9 @@ public class ExtentReportListener implements ITestListener {
 	}
 
 	public void onTestStart(ITestResult result) {
-		logger.set(extentReports.createTest(result.getMethod().getMethodName()));
+		synchronized (extentReports) {
+			logger.set(extentReports.createTest(result.getMethod().getMethodName()));
+		}
 	}
 
 	public void onTestSuccess(ITestResult result) {
