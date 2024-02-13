@@ -14,6 +14,7 @@ public class GlobalVariables {
 	public static String environment;
 	public static boolean highlightElement;
 	public static String browser;
+	public static boolean browserCaching;
 
 	public void loadProperties() {
 		try {
@@ -27,6 +28,7 @@ public class GlobalVariables {
 			environment = properties.getProperty("environment");
 			base64 = Boolean.parseBoolean(properties.getProperty("base64"));
 			highlightElement = Boolean.parseBoolean(properties.getProperty("highlightElement"));
+			browserCaching = Boolean.parseBoolean(properties.getProperty("browserCaching"));
 			username = CommonUtils.decodeString(properties.getProperty("username"));
 			password = CommonUtils.decodeString(properties.getProperty("password"));
 		} catch (IOException e) {
