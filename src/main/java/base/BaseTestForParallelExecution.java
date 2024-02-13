@@ -2,10 +2,13 @@ package base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utils.GlobalVariables;
@@ -22,11 +25,14 @@ public class BaseTestForParallelExecution extends GlobalVariables {
 
 	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
+	public static WebDriver driver1;
+
 	public static ThreadLocal<String> filePath = new ThreadLocal<String>();
 
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
+
 
 	@BeforeMethod
 	public void beforeMethodMethod(Method testMethod) {
@@ -39,6 +45,11 @@ public class BaseTestForParallelExecution extends GlobalVariables {
 		getDriver().manage().window().maximize();
 		getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
+	}
+
+	@AfterMethod
+	public void afterMethod() {
+		getDriver().quit();
 	}
 
 	@AfterSuite
@@ -65,11 +76,29 @@ public class BaseTestForParallelExecution extends GlobalVariables {
 		}
 	}
 
+	public static void clearDirectory(String directoryPath) throws IOException {
+		File directory = new File(directoryPath);
+		if (!directory.exists() || !directory.isDirectory()) {
+			throw new IllegalArgumentException("Path is not a directory or does not exist");
+		}
+
+		for (File file : directory.listFiles()) {
+			if (file.isDirectory()) {
+				clearDirectory(file.getAbsolutePath());
+			} else {
+				if (!file.delete()) {
+					throw new IOException("Failed to delete " + file);
+				}
+			}
+		}
+	}
+
 	public void setupDriver() {
 		switch (browser) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			driver.set(new ChromeDriver());
+			System.out.println(Thread.currentThread().getId());
 			break;
 		case "edge":
 			WebDriverManager.edgedriver().setup();

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="All Test Suite" parallel="tests" thread-count="2">
 <listeners>
 <listener class-name="utils.ExtentReportListener"/>
 </listeners>
   <test name="Test">
     <classes>
-      <class name="ui_testcases.Testcase"/>
+      <class name="ui_testcases.Testcase">
+      <methods>
+      	<include name="loginTest"/>	
+      </methods>
+      </class>
     </classes>
   </test> <!-- Test -->
+  <test name="Test2">
+    <classes>
+      <class name="ui_testcases.Testcase">
+      <methods>
+      	<include name="postBuzz"/>	
+      </methods>
+      </class>
+    </classes>
+  </test>
 </suite> <!-- Suite -->
