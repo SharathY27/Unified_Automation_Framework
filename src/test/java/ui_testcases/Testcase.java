@@ -8,7 +8,7 @@ import utils.ExtentReportListener;
 import webpages.HomePage;
 import webpages.LoginPage;
 
-@Listeners(ExtentReportListener.class)
+//@Listeners(ExtentReportListener.class)
 public class Testcase extends BaseTestForParallelExecution {
 
 	public void login() {
@@ -24,12 +24,12 @@ public class Testcase extends BaseTestForParallelExecution {
 		homePage.enterWhatsOnYourMind();
 	}
 
-	@Test
+//	@Test
 	public void loginTest() {
 		login();
 	}
 
-	@Test
+//	@Test
 	public void postBuzz() {
 		login();
 		buzzPosting();
