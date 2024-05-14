@@ -5,6 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -19,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTestForParallelExecution extends GlobalVariables {
@@ -32,7 +37,6 @@ public class BaseTestForParallelExecution extends GlobalVariables {
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
-
 
 	@BeforeMethod
 	public void beforeMethodMethod(Method testMethod) {
@@ -97,8 +101,18 @@ public class BaseTestForParallelExecution extends GlobalVariables {
 		switch (browser) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			driver.set(new ChromeDriver());
-			System.out.println(Thread.currentThread().getId());
+			if (docker) {
+				DesiredCapabilities cap = new DesiredCapabilities();
+				cap.setBrowserName(browser);
+				try {
+					driver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap));
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				driver.set(new ChromeDriver());
+				System.out.println(Thread.currentThread().getId());
+			}
 			break;
 		case "edge":
 			WebDriverManager.edgedriver().setup();

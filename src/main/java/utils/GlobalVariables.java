@@ -15,7 +15,9 @@ public class GlobalVariables {
 	public static boolean highlightElement;
 	public static String browser;
 	public static boolean browserCaching;
+	public static boolean docker;
 
+	
 	public void loadProperties() {
 		try {
 			FileReader fileReader = new FileReader(
@@ -30,6 +32,7 @@ public class GlobalVariables {
 			highlightElement = Boolean.parseBoolean(properties.getProperty("highlightElement"));
 			browserCaching = Boolean.parseBoolean(properties.getProperty("browserCaching"));
 			username = CommonUtils.decodeString(properties.getProperty("username"));
+			docker = Boolean.parseBoolean(properties.getProperty("docker"));
 			password = CommonUtils.decodeString(properties.getProperty("password"));
 		} catch (IOException e) {
 			e.printStackTrace();
